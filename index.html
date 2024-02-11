@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <title>Binge Worthy TV Show Challenge</title>
+    <style>
+      body {
+        background: linear-gradient(
+          to right,
+          rgb(252, 74, 26),
+          rgb(247, 183, 51)
+        );
+        margin: 0 auto;
+        font-family: sans-serif;
+      }
+      h1 {
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 40px;
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 40px;
+        padding-top: 50px;
+        text-align: center;
+        margin-top: 2px;
+      }
+
+      .container {
+        background: #ececec;
+        border-radius: 15px;
+        margin: 50px auto;
+        max-width: 850px;
+        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+        padding-bottom: 30px;
+      }
+      .container-logo {
+        margin: 0 auto;
+      }
+      .logo {
+        width: 20%;
+        display: block;
+        margin: 0 auto;
+        padding-top: 40px;
+      }
+
+      .gallery {
+        width: 100%;
+        display: flex;
+        margin: 5% auto 0;
+        box-sizing: border-box;
+        position: relative;
+        top: -1em;
+        padding: 30px;
+      }
+      .image-box {
+        margin: 0 1%;
+        flex-grow: 1;
+        flex-basis: 0;
+        transition: ease-in-out 0.5s;
+      }
+      .image-box img {
+        max-width: 100%;
+        height: 30pc;
+        object-fit: cover;
+        transition: ease-in-out 0.5s;
+      }
+      .image-box:hover {
+        flex-basis: 50%;
+      }
+      .active {
+        flex-basis: 50%;
+      }
+      .gallery:hover .active {
+        flex-basis: 0;
+      }
+      .image-box:nth-child(1):hover {
+        flex-basis: 50%;
+      }
+      .my-reason {
+        width: 18%;
+        display: block;
+        margin: 0 auto;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 200px);
+        padding: 28px;
+      }
+
+      .img-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .img-wrapper > img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 2;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .img-wrapper > .content {
+        position: absolute;
+        inset: 0;
+        font-size: 18px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      button {
+        background-color: #e99b2f;
+        font-size: 20px;
+        border-radius: 45px;
+        border: none;
+        padding: 20px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        transition: all 200ms ease-in-out;
+        position: relative;
+        top: 10em;
+        left: 0em;
+      }
+      button:hover {
+        background: rgb(252, 74, 26);
+        opacity: 0.8;
+        transition: all 200ms ease-in-out;
+        cursor: pointer;
+      }
+
+      .img-wrapper > img,
+      .img-wrapper > .content {
+        transition: 200ms ease-in-out;
+      }
+
+      .img-wrapper:hover > img.blur {
+        filter: blur(5px);
+      }
+
+      .img-wrapper:hover > img.gray {
+        filter: grayscale(1);
+      }
+
+      .img-wrapper:hover > img.zoom {
+        transform: scale(1.1);
+      }
+
+      .img-wrapper > .content.fade {
+        opacity: 0;
+      }
+      .img-wrapper:hover > .content.fade {
+        opacity: 1;
+      }
+
+      .img-wrapper > .content.slide-left {
+        transform: translateX(-100%);
+      }
+      .img-wrapper:hover > .content.slide-left {
+        transform: translateX(0);
+      }
+
+      .img-wrapper > .content.slide-right {
+        transform: translateX(100%);
+      }
+      .img-wrapper:hover > .content.slide-right {
+        transform: translateX(0);
+      }
+
+      .img-wrapper > .content.slide-down {
+        transform: translateY(-100%);
+      }
+      .img-wrapper:hover > .content.slide-down {
+        transform: translateY(0);
+      }
+
+      .img-wrapper > .content.slide-up {
+        transform: translateY(100%);
+      }
+      .img-wrapper:hover > .content.slide-up {
+        transform: translateY(0);
+      }
+      .grid2 {
+        max-width: 70%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        position: relative;
+        left: 3em;
+      }
+      .link-best-moments {
+        transition: all 150ms ease-in-out;
+        width: 80%;
+
+        margin-bottom: 40px;
+      }
+      .link-best-moments:hover {
+        filter: contrast(70%);
+        transform: scale(1.2);
+      }
+      .watch-next {
+        padding: 0 50px;
+        width: 50%;
+        font-size: 24px;
+        display: block;
+        margin: 0 auto;
+      }
+      .watch-next-content-main {
+        padding-bottom: 15px;
+      }
+      .next {
+        padding-top: 15px;
+        max-width: 75%;
+        display: block;
+        margin: 0 auto;
+      }
+      .content-below-image {
+        max-width: 75%;
+        padding: 30px;
+        padding-bottom: 70px;
+        display: block;
+        margin: 0 auto;
+      }
+      footer {
+        text-align: center;
+        margin: 0 auto;
+        font-size: 20px;
+        border-top: 1px solid #f9f7fe;
+        width: 1200px;
+        padding: 25px;
+        padding-bottom: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-logo">
+        <img
+          class="logo"
+          src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/361/original/pngfind.com-bang-png.png?1707368622"
+          alt="logo"
+        />
+      </div>
+      <h1></h1>
+      <div class="gallery">
+        <div class="image-box active">
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/045/original/IMG_9014.JPG?1707218085"
+            alt="bing-bang"
+          />
+        </div>
+        <div class="image-box">
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/047/original/IMG_8998.JPG?1707218781"
+            alt="sheldon"
+          />
+        </div>
+        <div class="image-box">
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/048/original/IMG_8999.JPG?1707218849"
+            alt="Leonard"
+          />
+        </div>
+        <div class="image-box">
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/049/original/IMG_9001.jpg?1707218907"
+            alt="Howard"
+          />
+        </div>
+        <div class="image-box">
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/050/original/IMG_9002.jpg?1707218972"
+            alt="Raj"
+          />
+        </div>
+      </div>
+    </div>
+    <img
+      class="my-reason"
+      src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/374/original/reason.jpg?1707377465"
+      alt="reason why i like this show"
+    />
+    <div class="container">
+      <h2>Cast</h2>
+      <div class="grid">
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/010/original/Sheldon.JPG?1707193419"
+            alt="sheldon"
+          />
+          <div class="content fade">
+            <a
+              href="https://youtu.be/n1VQu0SxdzI?si=Dsd998ohEDA11Sxm"
+              target="_blank"
+            >
+              Sheldon Cooper<br />
+              Best Moments
+            </a>
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="zoom blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/011/original/Leonard_Hofstadter.JPG?1707193491"
+            alt="leonard"
+          />
+          <div class="content fade">
+            <a
+              href="https://youtu.be/bKWnZab6Qt8?si=VRC0jVL-o1J1TdlP"
+              target="_blank"
+            >
+              Leonard Hofstadter<br />
+              Best Moments
+            </a>
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/018/original/Penny_.JPG?1707194242"
+            alt="penny"
+          />
+          <div class="content slide-left">
+            <a
+              href="https://youtu.be/ozdmU2g_ui4?si=z6V27-oV7qRbjGZt"
+              target="_blank"
+            >
+              Penny's Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/019/original/Howard_Wolowitz.jpg?1707194275"
+            alt="howard"
+          />
+          <div class="content slide-right">
+            <a
+              href="https://youtu.be/COuMUID4u7o?si=UdIuVQbs49KX1Zkb"
+              target="_blank"
+            >
+              Howard Wolowitz <br />
+              Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/020/original/Raj_Koothrappali.JPG?1707194349"
+            alt="raj"
+          />
+          <div class="content slide-up">
+            <a
+              href=" https://youtu.be/0y07dp4luyA?si=7RmcNwV8lzjDhHKC"
+              target="_blank"
+            >
+              Raj Koothrappali <br />Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/022/original/Amy_Farrah_Fowler.JPG?1707194402"
+            alt="amy"
+          />
+          <div class="content slide-down">
+            <a
+              href="https://youtu.be/_qKxThkSxAU?si=CBP6NHKRJ32wjnL1"
+              target="_blank"
+            >
+              Amy Farrah Fowler<br />
+              Best Moments
+            </a>
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="gray"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/023/original/Bernadette_Rostenkowski.JPG?1707194469"
+            alt="bernadette"
+          />
+          <div class="content slide-down">
+            <a
+              href="https://www.youtube.com/watch?v=ZQLXuBkJtCk"
+              target="_blank"
+            >
+              Bernadette's <br />Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/172/original/stuart.JPG?1707286847"
+            alt="stuart"
+          />
+          <div class="content fade">
+            <a
+              href="https://youtu.be/EuP7SId9aDM?si=gSXXwng_a10LuFDh"
+              target="_blank"
+            >
+              Stuart's <br />Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/367/original/dr_bh.jpg?1707372046"
+          />
+          <div class="content fade">
+            <a
+              href="https://youtu.be/OjULYlWK7LY?si=fRxr9Osq-6_ylEcM"
+              target="_blank"
+            >
+              Dr. Beverly Hofstadter <br />Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/371/original/mary_cooper.jpg?1707373071"
+          />
+          <div class="content slide-left">
+            <a
+              href="https://youtu.be/GyCw952S5l4?si=KPrjp1nHgaxS8RfM"
+              target="_blank"
+            >
+              Mary Cooper <br />Best Moments</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/169/original/L.jpg?1707286789"
+          />
+          <div class="content slide-right">
+            <a
+              href="https://youtu.be/X7soRGSq5vk?si=UlEHN__--mnlx7cI"
+              target="_blank"
+            >
+              All <br />Leslie Winkle <br />Burns</a
+            >
+          </div>
+        </div>
+        <div class="img-wrapper">
+          <img
+            class="blur"
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/368/original/bary.jpg?1707372659"
+          />
+          <div class="content slide-up">
+            <a
+              href="https://youtu.be/nhmq7BBnRf4?si=51f580MKvsuOA1fD"
+              target="_blank"
+            >
+              Barry Kripke <br />Best Moments</a
+            >
+          </div>
+        </div>
+      </div>
+      <h2>The Best Moments</h2>
+      <div class="grid2">
+        <a
+          href="https://youtu.be/dVmOvmH4dL4?si=k0YDXyslO4JXT-E9"
+          target="_blank"
+        >
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/168/original/1o_black.png?1707286769"
+            alt="top 10 funniest moments"
+            class="link-best-moments"
+          />
+        </a>
+        <a
+          href="https://youtu.be/DMVDez6w5Fw?si=XZ0MiVn7KJx7-XjT"
+          target="_blank"
+        >
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/170/original/sheldon_spot.png?1707286817"
+            alt="sheldon spot"
+            class="link-best-moments"
+          />
+        </a>
+        <a
+          href="https://youtu.be/S5LKXO9aCTc?si=JiS4RD7gfUmP4dtD"
+          target="_blank"
+        >
+          <img
+            src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/373/original/486C198C-6775-456C-8BEA-EB10F829D631.PNG?1707374825"
+            alt="best bazinga ever"
+            class="link-best-moments"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="watch-next">
+      <h2>Next Binge-Watch</h2>
+      <p class="watch-next-content-main">
+        When looking for another show to watch that shares some qualities with
+        The Big Bang Theory, there are many shows that exhibit similar traits,
+        whether it be through the comedy of a chosen family unit or the
+        scientific approach exhibited in science fiction and fantasy shows.
+        Whether using these shows to better understand the jokes made in The Big
+        Bang Theory, want to see a show with similar characters or comic relief,
+        or enjoy the science fiction that Sheldon was so fond of, there are
+        various shows that could be the next binge-watch:
+      </p>
+      <img
+        class="next"
+        src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/380/original/Best_of_Big_2.PNG?1707380324"
+        alt="Young Sheldon"
+      />
+      <div>
+        <p class="content-below-image">
+          For anyone who loves Sheldon Cooper,
+          <a
+            href="https://youtu.be/iGKnI3Lc7C4?si=m_2leoUWI6n8MdlT"
+            target="_blank"
+            >Young Sheldon</a
+          >
+          is the place to experience his backstory first-hand. While the show
+          misses the ensemble that the adult counterpart gets to experience, the
+          younger Sheldon's adventures follow his life beginning in high school
+          and transitioning over to college. While Young Sheldon does not
+          perfectly match The Big Bang Theory's initial explanations for
+          Sheldon's past, it still brings a lot of heart and comedy to the
+          characters and storylines.
+        </p>
+      </div>
+      <img
+        class="next"
+        src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/382/original/stranger_things.PNG?1707380563"
+        alt="stranger things"
+      />
+      <div>
+        <p class="content-below-image">
+          Whether it be the fantasy elements inspired by
+          <a href="https://dnd.wizards.com/" target="_blank"
+            >Dungeons and Dragons</a
+          >, the reliance on science the central characters must use to save
+          Hawkins, or how the group of main characters trusts each other beyond
+          anyone else,
+          <a
+            href="https://youtu.be/mnd7sFt5c3A?si=W6ydHvkFpRmwnbtB"
+            target="_blank"
+            >Stranger Things</a
+          >
+          delivers on emphasizing the science fiction and fantasy genres while
+          mixing in a coming-of-age story. The group must constantly save their
+          town from the Upside Down, especially when Vecna's arrival threatens
+          the townspeople in addition to the central characters.
+        </p>
+      </div>
+      <img
+        class="next"
+        src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/381/original/startrek.PNG?1707380547"
+        alt="star trek"
+      />
+      <p class="content-below-image">
+        Given how often The Big Bang Theory directly references
+        <a
+          href="https://youtu.be/zrXvBaFFu80?si=eeF-xDEgAm2F3GKL"
+          target="_blank"
+          >Star Trek</a
+        >, it makes absolute sense to watch the show that inspired so many
+        references. Star Trek is a pure science fiction fantasy show with
+        various spinoffs. Star Trek offers a different look at humanity's
+        future, and although the series has plenty of comparisons to
+        <a
+          href="https://youtu.be/XHk5kCIiGoM?si=IlMor_YxWWHIIATV"
+          target="_blank"
+          >Star Wars</a
+        >, the two franchises have plenty of differences in their presentation.
+        The Big Bang Theory even featured multiple guest star appearances from
+        the cast of the show.
+      </p>
+
+      <img
+        class="next"
+        src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/114/383/original/friends.PNG?1707380575"
+        alt="friends"
+      />
+      <p class="content-below-image">
+        <a
+          href="https://youtu.be/bvEnlf9g4co?si=c2U0OwZzd4RW-jAl"
+          target="_blank"
+          >Friends</a
+        >
+        is another series that shares the chosen family dynamic, there is no one
+        more important in Rachel, Monica, Phoebe, Joey, Ross, and Chandler's
+        lives than each other. They depend on each other for light-hearted and
+        emotional moments. They watch each other's ups and downs. They are
+        present for each other's weddings and childbirths. There is no moment
+        small enough for the gang to gather together, and the mix of
+        personalities and romances that exist within the group keeps things
+        funny and interesting.
+      </p>
+    </div>
+    <footer>
+      <strong>ABOUT THIS WEBSITE </strong>
+      <p>
+        Monthly
+        <a
+          href="https://www.shecodes.io/contests/binge-worthy-tv-show#inspiration"
+          target="_blank"
+          >SheCodes</a
+        >
+        coding challenge "Binge-Worthy TV Shows" coded with 💚 by
+        <strong>Patrycja Oosthuizen</strong>
+      </p>
+    </footer>
+
+    <script>
+      new Typewriter("h1", {
+        strings: `”Because it all started with a Big Bang„`,
+        autoStart: true,
+        cursor: "⚡️",
+        delay: 50,
+      });
+    </script>
+  </body>
+</html>
